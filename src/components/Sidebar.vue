@@ -67,12 +67,21 @@
         </div>
       </b-field>
     </div> -->
-    <b-button @click="open = true">></b-button>
+    <b-button class="button_float is-black" @click="open = true"><font-awesome-icon icon="angle-double-right" /></b-button>
   </section>
 </template>
 
 <script>
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faUserSecret , faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faUserSecret, faAngleDoubleRight)
+
 export default {
+  components: {
+    FontAwesomeIcon
+  },
   data() {
     return {
       open: false,
@@ -86,6 +95,10 @@ export default {
 </script>
 
 <style>
+.button_float {
+  float: left;
+  bottom:50%;
+}
 .p-1 {
   padding: 1em;
 }

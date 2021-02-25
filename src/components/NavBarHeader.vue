@@ -7,6 +7,7 @@
                     alt="Takilya"
                 >
             </b-navbar-item>
+            
         </template>
         <template #start>
             <b-navbar-item><router-link to="/">
@@ -23,7 +24,7 @@
                     Contact
                 </b-navbar-item>
             </b-navbar-dropdown>
-            <sidebar/>
+            
         </template>
 
         <template #end>
@@ -41,12 +42,12 @@
     </b-navbar>
 </template>
 <script>
-import Sidebar from './Sidebar.vue'
+
 
 export default {
   name: 'NavBarHeader',
   components: {
-      Sidebar
+      
   },
   props: {
     msg: String

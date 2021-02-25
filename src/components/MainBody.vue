@@ -2,7 +2,6 @@
 <template>    
     <div class="container" id="body">
         <hero/>
-        
         <router-view/>
         <div class="tile">
             
@@ -65,7 +64,7 @@ export default {
     name: 'Body',
     components: {
         Hero,
-           
+                   
     }
 }
 </script>
