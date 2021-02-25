@@ -33,7 +33,7 @@
                         <strong>Sign up</strong>
                     </a> -->
                     <a class="button is-light">
-                        Log in Not Required Yet
+                        Log in Not Required For Now
                     </a>
                 </div>
             </b-navbar-item>
