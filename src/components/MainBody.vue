@@ -26,7 +26,7 @@
         <div class="card">
             <div class="card-image">
                 <figure class="image is-4by3">
-                <router-link to="/watch"><img src="poster.png" alt="Placeholder image"></router-link>
+                <router-link to="/watch"><img src="orange_burst.png" alt="Placeholder image"></router-link>
                 </figure>
             </div>
             <div class="card-content">

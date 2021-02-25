@@ -28,10 +28,10 @@ export default {
 			videoOptions: {
 				autoplay: false,
 				controls: true,
-                poster:"poster.png",
+                poster:"orange_burst.png",
 				sources: [
 				{
-					src: "https://takilya-videos.obs.ap-southeast-3.myhuaweicloud.com/videos/helmet-test.mov",
+					src: "https://takilya-videos.obs.ap-southeast-3.myhuaweicloud.com/videos/Takilya-Intro.mp4",
 					type: "video/mp4"
 				}
 				]
