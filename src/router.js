@@ -3,6 +3,7 @@ import Router from "vue-router";
 import About from "./views/Info.vue"
 import MainBody from "./components/MainBody.vue"
 import ViewPane from "./views/ViewPane.vue"
+import Login from "./components/Login.vue"
 
 Vue.use(Router);
 
@@ -22,6 +23,11 @@ export default new Router({
             path: "/watch",
             name: "watch",
             component: ViewPane
+        },
+        {
+            path: "/login",
+            name: "login",
+            component: Login
         }
     ]
 })

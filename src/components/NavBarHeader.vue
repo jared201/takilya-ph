@@ -34,6 +34,7 @@
                     <!-- <a class="button is-primary">
                         <strong>Sign up</strong>
                     </a> -->
+                    <router-link to="/login" class="button is-info">Login</router-link>
                     <a class="button is-light">
                         Log in Not Required For Now
                     </a>
