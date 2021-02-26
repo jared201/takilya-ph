@@ -10,13 +10,17 @@
         </h2>
         </div>
     </div>
+    
     </section>
 </template>
 <script>
 
+
 export default {
   name: 'Hero',
-  props: {
+  components: { },
+  props: 
+    {
     msg: String
   }
   , title: 'Takilya Video Streaming'

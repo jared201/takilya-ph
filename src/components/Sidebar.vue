@@ -97,7 +97,7 @@ export default {
 <style>
 .button_float {
   float: left;
-  bottom:50%;
+  bottom: -5%;
 }
 .p-1 {
   padding: 1em;

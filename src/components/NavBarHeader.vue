@@ -1,6 +1,7 @@
 <template>
     <b-navbar>
         <template #brand>
+            <sidebar/>
             <b-navbar-item tag="router-link" :to="{ path: '/' }">
                 <img
                     src="../assets/orange_burst.png"
@@ -42,11 +43,13 @@
     </b-navbar>
 </template>
 <script>
+import Sidebar from './Sidebar.vue'
 
 
 export default {
   name: 'NavBarHeader',
   components: {
+    Sidebar
       
   },
   props: {

@@ -3,8 +3,8 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <NavBarHeader/> 
-    <sidebar/>
     <router-view/>
+    
     <nav-footer/>
   </div>
 </template>
@@ -13,7 +13,7 @@
 //import HelloWorld from './components/HelloWorld.vue'
 import NavBarHeader from './components/NavBarHeader.vue'
 import NavFooter from './components/NavFooter.vue'
-import Sidebar from './components/Sidebar.vue'
+
 
 export default {
   name: 'App',
@@ -21,7 +21,7 @@ export default {
     // HelloWorld,
     NavBarHeader,
     NavFooter,
-    Sidebar
+    
   },
   
 }
