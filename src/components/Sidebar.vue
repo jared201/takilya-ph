@@ -15,10 +15,10 @@
         />
         <b-menu>
           <b-menu-list label="Menu">
-            <b-menu-item icon="information-outline" label="Info"></b-menu-item>
+            <!-- <b-menu-item icon="information-outline" label="Info"></b-menu-item> -->
             <b-menu-item icon="settings">
-              <template #label="props">
-                Home
+              <template #label="props"><router-link to="/">
+                Home</router-link>
                 <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
               </template>
               <b-menu-item icon="account" label="History"></b-menu-item>
