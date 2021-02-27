@@ -11,25 +11,37 @@
                 <div class="card">
                     <div class="card-content">
                         <form>
-                        <section>                            
-                            <b-field label="Username" >
-                                <b-input value="" placeholder="Enter your email"></b-input>
+                        <ValidationObserver ref="observer" v-slot="{ handleSubmit }">    
+                        <section>            
+                            <ValidationProvider rules="required|email" name="Email" v-slot="{ errors, valid  }">                
+                            <b-field label="Username"  :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+                                <b-input type="email" v-model="email" placeholder="Enter your email"></b-input>
                             </b-field>
-                            <b-field label="Mobile Number" >
-                                <b-input  value="" placeholder="Enter your mobile number"></b-input>
+                            </ValidationProvider>
+                            <ValidationProvider rules="required" name="Mobile" v-slot="{ errors}">
+                            <b-field label="Mobile Number" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+                                <b-input  value="" placeholder="+639171234567" v-model="mobile"></b-input>
                             </b-field>                                    
-                            <b-field label="Password" >
-                                <b-input type="password" value="" placeholder="Enter your password"></b-input>
+                            </ValidationProvider>
+                            <ValidationProvider rules="required" name="Password" v-slot="{ errors}">
+                            <b-field label="Password" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+                                <b-input type="password" value="" v-model="password" placeholder="Enter your password"></b-input>
                             </b-field>
-                            <b-field label="Confirm your Password" >
-                                <b-input type="password" value="" placeholder="Enter your password"></b-input>
+                            </ValidationProvider>
+                            <ValidationProvider rules="required|confirmed:Password" name="Confirm" v-slot="{ errors}">
+                            <b-field label="Confirm your Password" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+                                <b-input type="password" v-model="confirm" value="" placeholder="Enter your password"></b-input>
                             </b-field>
-                            <b-field label="Create your secret key" >
-                                <b-input type="password" value="" placeholder="Any words you can remember"></b-input>
-                            </b-field>                                                                
-                            <b-button class="is-light is-info">Register</b-button><br>
+                            </ValidationProvider>
+                            <ValidationProvider rules="required" name="Secret" v-slot="{ errors}">
+                            <b-field label="Create your secret key" :type="{'is-danger': errors[0], 'is-success': valid}" :message="errors">
+                                <b-input type="password" v-model="secret" value="" placeholder="Any words you can remember"></b-input>
+                            </b-field>       
+                            </ValidationProvider>                                                         
+                            <b-button class="is-light is-info" @click="handleSubmit(clickMe)">Register</b-button><br>
                             
                         </section>
+                        </ValidationObserver>
                         </form>
                     </div>
                 </div>
@@ -43,7 +55,17 @@
        
 </template>
 <script>
+import { ValidationObserver, ValidationProvider } from "vee-validate";
 export default {
-    
+    name: 'Register',
+    components: {
+        ValidationObserver, 
+        ValidationProvider
+    },
+    methods : {
+        clickMe () {
+
+        }
+    }
 }
 </script>

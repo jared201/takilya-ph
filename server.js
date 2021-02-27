@@ -43,4 +43,48 @@ express()
             res.status(200).send(msg);
         });
     })
+    .get('/test_check_bucket', (req, res)=>{
+        const obs = require ('./server/bucket_operations');
+        obs.checkBucket('takilya-videos', (message)=>{
+            res.status(200).send(message);
+        });
+    })
+    .get('/test_delete_bucket', (req, res)=>{
+        const obs = require('./server/bucket_operations');
+        obs.deleteBucket('from-node', (message)=>{
+            res.status(200).send(message);
+        });
+    })
+    .get('/test_list_objects', (req, res)=>{
+        const obs = require('./server/bucket_operations');
+        obs.listObjects('takilya-videos', (message)=>{
+            let msg = JSON.stringify(message);
+            res.status(200).send(msg);
+        });
+    })
+    .get('/test_create_folder', (req, res)=>{
+        const obs = require('./server/bucket_operations');
+        obs.createFolder('test-folder', 'takilya-videos', (message)=>{
+            let msg = JSON.stringify(message);
+            res.status(200).send(msg);
+        });
+    })
+    .get('/test_delete_folder',(req, res)=>{
+        const obs = require('./server/bucket_operations');
+        obs.deleteFolder('test-folder', 'takilya-videos', (message)=>{
+            res.status(200).send(message);
+        });
+    })
+    .get('/test_file_upload', (req, res)=> {
+        const obs = require('./server/bucket_operations');
+        obs.uploadFile('test-upload2.txt', 'takilya-videos', (message)=>{
+            res.status(200).send(message);
+        });
+    })
+    .get('/test_delete_file', (req, res)=> {
+        const obs = require('./server/bucket_operations');
+        obs.deleteFile('test-upload2.txt', 'takilya-videos', (message)=>{
+            res.status(200).send(message);
+        });
+    })
     .listen(PORT, ()=> console.log(`Listening on ${ PORT }`));

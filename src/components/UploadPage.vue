@@ -29,12 +29,15 @@
                                         </section>
                                     </b-upload>
                                 </b-field>         
+                                <b-field horizontal>
                                 <div class="tags">
                                     <span v-for="(file, index) in dropFiles" :key="index" class="tag is-primary">
                                         {{file.name}}
                                         <button class="delete is-small" type="button" @click="deleteDropFile(index)"></button>
                                     </span>
                                 </div>                                                                                                                   
+                                </b-field>
+
                             </section>
                         </form>
                     </div>
