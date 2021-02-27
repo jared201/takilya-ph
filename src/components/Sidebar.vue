@@ -24,7 +24,7 @@
               <b-menu-item icon="account" label="History"></b-menu-item>
               <b-menu-item icon="cellphone-link">
                 <template #label>
-                  My Channel
+                  <router-link to="/upload">My Channel</router-link>
                   <b-dropdown aria-role="list" class="is-pulled-right" position="is-bottom-left">
                         <template #trigger>
                             <b-icon icon="dots-vertical"></b-icon>

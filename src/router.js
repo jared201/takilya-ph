@@ -4,6 +4,8 @@ import About from "./views/Info.vue"
 import MainBody from "./components/MainBody.vue"
 import ViewPane from "./views/ViewPane.vue"
 import Login from "./components/Login.vue"
+import Register from "./components/Register.vue"
+import Upload from "./components/UploadPage.vue"
 
 Vue.use(Router);
 
@@ -28,6 +30,16 @@ export default new Router({
             path: "/login",
             name: "login",
             component: Login
+        },
+        {
+            path: "/register",
+            name: "register",
+            component: Register
+        },
+        {
+            path: "/upload",
+            name: "upload",
+            component: Upload
         }
     ]
 })

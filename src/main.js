@@ -7,13 +7,16 @@ import titleMixin from './mixins/titleMixin'
 import "./vee-validate"
 import router from "./router"
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faUserSecret , faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+import { faUserSecret , faAngleDoubleRight, faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
-library.add(faUserSecret, faAngleDoubleRight)
+library.add(faUserSecret, faAngleDoubleRight, faCloudUploadAlt)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
-Vue.use(Buefy);
+Vue.use(Buefy, {
+  defaultIconPack: 'fas',
+  defaultContainerElement: '#content'
+});
 Vue.mixin(titleMixin)
 
 Vue.config.productionTip = false

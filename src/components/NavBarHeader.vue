@@ -35,9 +35,9 @@
                         <strong>Sign up</strong>
                     </a> -->
                     <router-link to="/login" class="button is-info">Login</router-link>
-                    <a class="button is-black">
+                    <router-link to="/register" class="button is-black">
                         Register
-                    </a>
+                    </router-link>
                 </div>
             </b-navbar-item>
         </template>
