@@ -30,4 +30,17 @@ express()
             }
         });
     })
+    .get('/test_create_bucket', (req, res)=>{
+        const obs = require('./server/bucket_operations');
+        obs.createBucket('from-node', (message)=>{
+            res.status(200).send(message);
+        });
+    })
+    .get('/test_list_buckets', (req, res)=>{
+        const obs = require ('./server/bucket_operations');
+        obs.listBuckets((message)=>{
+            let msg = JSON.stringify(message);
+            res.status(200).send(msg);
+        });
+    })
     .listen(PORT, ()=> console.log(`Listening on ${ PORT }`));
