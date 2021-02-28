@@ -1,7 +1,7 @@
 const express = require ('express')
 const path = require('path')
 const PORT = process.env.PORT || 5000
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 express()
     .use(express.static(path.join(__dirname, 'dist')))
@@ -86,5 +86,44 @@ express()
         obs.deleteFile('test-upload2.txt', 'takilya-videos', (message)=>{
             res.status(200).send(message);
         });
+    })
+    .post('/signup', (req, res)=> {
+        //console.log(req.body);
+        const uc = require('./server/usercontroller');        
+        uc.addUser(req.body, (rowcount, err, hash)=>{
+            if (rowcount > 0){
+                const mg = require ('./server/mailgunner');
+                mg.sendNodeMail(req.body.email, hash, req, (body)=>{
+                    console.log('Email sent: ' + body);
+                    res.status(200).send('User has been registered please check email to activate account.');                            
+                });
+                
+            } else {
+                res.status(200).send('Registration failed.');
+                console.log('Signup error: -->' + err);
+            }
+        })
+    })
+    .get('/activate', (req, res)=>{
+        console.log({email: req.query.email, hash: req.query.hash});
+        const uc = require('./server/usercontroller');
+        const obs = require('./server/bucket_operations');
+        uc.activateUser(req.query.email, req.query.hash, (rowcount, err, hash)=>{
+            if (rowcount > 0) {
+                uc.getSecret(req.query.email, (secret, rowCnt)=>{
+                    if (rowCnt > 0){
+                        obs.createFolder(secret, 'takilya-videos', (message)=>{
+                            let msg = JSON.stringify(message);
+                            console.log(msg);
+                            res.redirect("/#/login");                        });
+                         
+                    }
+                });
+            } else {
+                console.log('Error: ' + err);
+                res.redirect('/');
+            }
+        })
+        
     })
     .listen(PORT, ()=> console.log(`Listening on ${ PORT }`));

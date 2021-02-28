@@ -205,4 +205,5 @@ exports.deleteFile = function(objectName, bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
