@@ -6,6 +6,8 @@ import ViewPane from "./views/ViewPane.vue"
 import Login from "./components/Login.vue"
 import Register from "./components/Register.vue"
 import Upload from "./components/UploadPage.vue"
+import Library from "./components/Library.vue"
+import TestPane from "./views/TestPane.vue"
 
 Vue.use(Router);
 
@@ -40,6 +42,16 @@ export default new Router({
             path: "/upload",
             name: "upload",
             component: Upload
+        },
+        {
+            path: "/library",
+            name: "library",
+            component: Library
+        },
+        {
+            path: "/japs",
+            name: "japs",
+            component: TestPane
         }
     ]
 })

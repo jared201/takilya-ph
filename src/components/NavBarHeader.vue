@@ -14,8 +14,8 @@
             <b-navbar-item><router-link to="/">
                 Home</router-link>
             </b-navbar-item>
-            <b-navbar-item href="/">
-                Library
+            <b-navbar-item >
+                <router-link to="/library">Library</router-link> 
             </b-navbar-item>
             <b-navbar-dropdown label="Info">
                 <b-navbar-item><router-link to="/about">
