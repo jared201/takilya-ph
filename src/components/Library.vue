@@ -70,6 +70,8 @@
 </template>
 <script>
 export default {
-    
+    created() {
+        console.log ("page loaded");
+    }
 }
 </script>

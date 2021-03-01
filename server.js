@@ -126,4 +126,13 @@ express()
         })
         
     })
+    .get('/get_library', (req, res)=>{
+        const lc = require ('./server/librarycontroller');
+        lc.getLibrary((library,rowcount)=>{
+            if (rowcount>0){
+                console.log(JSON.stringify(library));
+                res.status(200).send(JSON.stringify(library));
+            }
+        });
+    })
     .listen(PORT, ()=> console.log(`Listening on ${ PORT }`));
