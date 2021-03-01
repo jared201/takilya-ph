@@ -26,7 +26,8 @@ export default new Router({
         {
             path: "/watch",
             name: "watch",
-            component: ViewPane
+            component: ViewPane,
+            props: route => ({author: route.query.author, video_id: route.query.video_id, video_src: route.query.video_src, poster: route.query.poster})
         },
         {
             path: "/login",

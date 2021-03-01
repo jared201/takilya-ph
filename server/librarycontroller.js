@@ -2,7 +2,7 @@ exports.getLibrary = function (callback) {
     const { dbPool } = require ('./dbmodule');
     const db = new dbPool();
     const dataQuery = {};
-    dataQuery.text = 'SELECT username, video_id, title, description FROM LIBRARY;';
+    dataQuery.text = 'SELECT username, video_id, title, description, created_on, link, poster FROM LIBRARY;';
     (async ()=> {
         console.log("Connecting to DB...");
         const client = await db.connect();
@@ -27,6 +27,7 @@ exports.getLibrary = function (callback) {
                     items.description = rows.description;
                     items.created_on = rows.created_on;
                     items.link = rows.link;
+                    items.poster = rows.poster;
                     library.push(items);
                   }
                 } catch (e) {
@@ -42,4 +43,7 @@ exports.getLibrary = function (callback) {
             
         }
     })().catch((e)=> console.log(e.stack));        
+}
+exports.getVideo = function (author, video_id, callback){
+
 }
