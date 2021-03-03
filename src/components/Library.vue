@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <br>        
-        <div class="columns is-4">
-            <div class="column" v-for="lib in library" :key="lib.username">
+        <div class="columns is-multiline">
+            <div class="column is-4" v-for="lib in library" :key="lib.username">
                <library-card :desc="lib.description" :author="lib.username" :title="lib.title" :created_on="lib.created_on" 
                        :video_id="lib.video_id" :video_src="lib.link" :poster="lib.poster"/>            
             </div>
