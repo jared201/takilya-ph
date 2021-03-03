@@ -8,17 +8,17 @@
                         <form>
                             <section>
                                 <b-field horizontal label="Title">
-                                    <b-input value="" placeholder="Enter the title here"></b-input>
+                                    <b-input value="" v-model="title" placeholder="Enter the title here"></b-input>
                                 </b-field>
                                 <b-field horizontal label="Description">
-                                    <b-input type="textarea" value="" placeholder="Why do you want to upload this video?"></b-input>
+                                    <b-input type="textarea" v-model="description" value="" placeholder="Why do you want to upload this video?"></b-input>
                                 </b-field>                                
                                 <b-field horizontal label="Secret Key">
-                                    <b-input type="password" value="" placeholder="This enables you to upload videos without having to login"></b-input>
+                                    <b-input type="password" value="" v-model="secret" placeholder="This enables you to upload videos without having to login"></b-input>
                                 </b-field>    
                                 <b-field horizontal>
-                                    <b-upload v-model="dropFiles" multiple drag-drop expanded>
-                                        <section class="section">
+                                    <b-upload  v-model="dropFiles" multiple drag-drop expanded @input="uploadFile">
+                                        <section class="section" refs="section">
                                         <div class="content has-text-centered">
                                             <p>
                                             
@@ -60,12 +60,68 @@ export default {
     },
     data() {
                 return {
-                    dropFiles: []
+                    dropFiles: [],
+                    title: '',
+                    description: '',
+                    secret: '',
+                    objectName: '',
+                    dataFile: null,
                 }
             },
             methods: {
                 deleteDropFile(index) {
                     this.dropFiles.splice(index, 1)
+                },
+                uploadFile() {
+                    
+                    this.dataFile = this.dropFiles[0];
+                    this.objectName = this.dataFile.name;
+                    //let bodyData = {title: this.title, description: this.description, secret: this.secret, objectName: this.objectName, };
+                    //var reader = new FileReader();
+                    var dialog = this.$buefy.dialog;
+                    var formData = new FormData();
+                    formData.append('title', this.title);
+                    formData.append('description', this.description);
+                    formData.append('secret', this.secret);
+                    formData.append('dataFile', this.dataFile);
+                    
+                    let url = '/upload';
+                    
+                    console.log(this.$refs.section);
+
+                    const loadingComponent = this.$buefy.loading.open({
+                      container:  this.$refs.section
+                    })
+                    fetch(url, {method : 'POST' ,                                                     
+                                body: formData}).then((response)=>{
+                                    if (response.ok){
+                                        response.text().then((text)=>{
+                                            console.log (text);     
+                                            dialog.alert(text);
+                                            loadingComponent.close();
+                                        });
+                                    } else {
+                                response.text().then((text)=>{                    
+                                        console.log (text);
+                                        this.$buefy.dialog.alert({
+                                        title: 'Error',
+                                        message: text,
+                                        type: 'is-danger',
+                                        hasIcon: false,
+                                        ariaRole: 'alertdialog',
+                                        ariaModal: true
+                                    })
+                                    });
+                                    }
+                        })
+                            .catch((error)=>{
+                            console.log(error);
+                            loadingComponent.close();
+                            dialog.alert(error);
+                    });                                                                      
+                    console.log (this.dataFile);    
+                                                            
+
                 }
             }    
 }

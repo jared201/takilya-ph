@@ -44,6 +44,42 @@ exports.getLibrary = function (callback) {
         }
     })().catch((e)=> console.log(e.stack));        
 }
-exports.getVideo = function (author, video_id, callback){
-
+exports.addLibrary = function (title, description, username, link, callback){
+  const { dbPool } = require ('./dbmodule');
+  const db = new dbPool();
+  const dataQuery = {};  
+  dataQuery.text = 'INSERT INTO LIBRARY (username, title, description, created_on, link) ' +
+                   'VALUES ($1, $2, $3, $4, $5);';
+  dataQuery.values = [username, title, description, new Date(), link];
+  (async ()=> {
+    console.log("Connecting to DB...");
+    const client = await db.connect();
+    let rowCount = 0;
+    let errorMsg = undefined;
+    try {
+        await client.query('BEGIN');
+        await client.query(dataQuery, (err, result)=> {
+            try {
+                if (err) {
+                    throw err;
+                }
+                rowCount = result.rowCount;
+                
+            } catch (er){
+                console.log('error rolling back ' + er.stack);
+                client.query('ROLLBACK;');
+                errorMsg = er;
+            } finally {
+                client.release();
+                callback(rowCount, errorMsg);
+            }
+        });
+        await client.query('COMMIT;');
+    } catch (e){
+        console.log('ROLLING BACK', e);
+        await client.query('ROLLBACK;');
+    } finally {
+        
+    }
+})().catch((e)=> console.log(e.stack));                       
 }

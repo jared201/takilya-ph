@@ -184,6 +184,30 @@ exports.uploadFile = function(objectName, bucketName, callback){
         }
     });
 }
+exports.uploadVideoFile = function(key, bucketName, data, callback){
+    var ObsClient = require('esdk-obs-nodejs');
+    var obsClient = new ObsClient({
+        access_key_id: process.env.OBS_ACCESS_KEY,
+        secret_access_key: process.env.OBS_SECRET_KEY,
+        server: process.env.OBS_ENDPOINT
+    });
+    obsClient.putObject({
+        Bucket: bucketName,
+        Key: key,        
+        Body: data
+    }, (err,result)=>{
+        if (err){
+            callback({message: 'Error-> ' + err});
+        } else {
+            if (result.CommonMsg.Status < 300){
+                let link = 'https://' + bucketName + '.' + process.env.OBS_ENDPOINT + '/' + key;
+                callback({message:' file has been uploaded.', link: link});
+            } else {
+                callback({message: result.CommonMsg.Status, err: 'Upload failed.'});
+            }
+        }
+    });
+}
 exports.deleteFile = function(objectName, bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
     var obsClient = new ObsClient({

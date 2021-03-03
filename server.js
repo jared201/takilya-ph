@@ -1,12 +1,13 @@
 const express = require ('express')
 const path = require('path')
+const muliparty = require('multiparty');
 const PORT = process.env.PORT || 5000
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 
 express()
     .use(express.static(path.join(__dirname, 'dist')))
-    .use(bodyParser.urlencoded({extended: true}))
-    .use(bodyParser.json())
+    //.use(bodyParser.urlencoded({extended: true, limit: '2000mb'}))
+    //.use(bodyParser.json({limit: '2000mb'}))
     .set('views', path.join(__dirname, 'dist'))
     .set('view engine', 'html')
     .get('/', (req, res)=>{
@@ -134,5 +135,55 @@ express()
                 res.status(200).send(JSON.stringify(library));
             }
         });
+    })
+    .post('/upload', (req, res)=>{
+        const bo = require('./server/bucket_operations');
+        const lc = require('./server/librarycontroller');
+        const uc = require('./server/usercontroller');
+        const form = new muliparty.Form();
+        var description;
+        var title;
+        var secret;
+                
+        form.on('field', function(name, value) {
+            if (name === 'description'){
+                description = value;
+            }
+            if (name === 'title'){
+                title = value;
+            }
+            if (name === 'secret') {
+                secret = value;                
+            }
+            console.log ('Fields: ' + title + ', ' + description + ', ' + secret);
+            //res.status(200).send("Testing upload");
+
+        });
+        form.on('part', function(part){
+            console.log('Filename: ', part.filename);
+
+            let key = secret + "/" + part.filename;
+            bo.uploadVideoFile(key, 'takilya-videos', part, (message)=>{
+                uc.getUsernameFromSecret(secret, (username, rowcount)=>{
+                    if (rowcount > 0){
+                        lc.addLibrary(title, description, username, message.link, (rowcount, errMsg)=>{
+                            if (rowcount > 0){
+                                res.status(200).send(part.filename +  " " + message.message);
+                            }else {
+                                res.status(200).send(errMsg + ' Upload failed.');
+                            }
+                        });
+                    }
+                });
+                
+            });
+            
+        });
+        form.on('error', (err)=>{
+            console.log(err);
+            res.status(200).send(err);
+        });
+        form.parse(req);
+       
     })
     .listen(PORT, ()=> console.log(`Listening on ${ PORT }`));

@@ -118,5 +118,46 @@ exports.getSecret = function (email, callback){
         } finally {
             
         }
-    })().catch((e)=> console.log(e.stack));            
+    })().catch((e)=> console.log(e.stack));       
+
+}
+
+exports.getUsernameFromSecret = function(secret, callback){
+    const { dbPool } = require ('./dbmodule');
+    const db = new dbPool();
+    const dataQuery = {};
+    dataQuery.text = 'SELECT username FROM obs_users where secret = $1 LIMIT 1;';
+    dataQuery.values = [secret];
+    (async ()=> {
+        console.log("Connecting to DB...");
+        const client = await db.connect();
+        let rowCount = 0;
+        let errorMsg = undefined;
+        try {
+            console.log('beginning transaction...');
+            await client.query(dataQuery, (err, result) => {
+                let username;
+                let rowcount = 0
+                try {
+                  if (err) {
+                    throw err
+                  }
+                  rowcount = result.rowCount
+                  for (const rows of result.rows) {
+                    username = rows.username;
+                  }
+                } catch (e) {
+                  console.log(e)
+                } finally {
+                  callback(username, rowcount)
+                }
+              })            
+        } catch (e){
+            console.log('ROLLING BACK', e);
+            await client.query('ROLLBACK;');
+        } finally {
+            
+        }
+    })().catch((e)=> console.log(e.stack));       
+
 }
