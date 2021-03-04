@@ -37,7 +37,7 @@ exports.addUser = function (body, callback){
             console.log('ROLLING BACK', e);
             await client.query('ROLLBACK;');
         } finally {
-            
+            await client.release();
         }
     })().catch((e)=> console.log(e.stack));    
 }
@@ -77,7 +77,7 @@ exports.activateUser = function (email, hash, callback) {
             console.log('ROLLING BACK', e);
             await client.query('ROLLBACK;');
         } finally {
-            
+            await client.release();
         }
     })().catch((e)=> console.log(e.stack));        
 
@@ -116,7 +116,7 @@ exports.getSecret = function (email, callback){
             console.log('ROLLING BACK', e);
             await client.query('ROLLBACK;');
         } finally {
-            
+            await client.release();
         }
     })().catch((e)=> console.log(e.stack));       
 
@@ -156,7 +156,7 @@ exports.getUsernameFromSecret = function(secret, callback){
             console.log('ROLLING BACK', e);
             await client.query('ROLLBACK;');
         } finally {
-            
+            await client.release();
         }
     })().catch((e)=> console.log(e.stack));       
 

@@ -163,10 +163,12 @@ express()
             console.log('Filename: ', part.filename);
 
             let key = secret + "/" + part.filename;
+            let link = '';
             bo.uploadVideoFile(key, 'takilya-videos', part, (message)=>{
+                link = message.link;
                 uc.getUsernameFromSecret(secret, (username, rowcount)=>{
                     if (rowcount > 0){
-                        lc.addLibrary(title, description, username, message.link, (rowcount, errMsg)=>{
+                        lc.addLibrary(title, description, username, link, (rowcount, errMsg)=>{
                             if (rowcount > 0){
                                 res.status(200).send(part.filename +  " " + message.message);
                             }else {

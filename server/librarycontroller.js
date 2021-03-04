@@ -33,6 +33,7 @@ exports.getLibrary = function (callback) {
                 } catch (e) {
                   console.log(e)
                 } finally {
+                  
                   callback(library, rowcount)
                 }
               })            
@@ -40,7 +41,7 @@ exports.getLibrary = function (callback) {
             console.log('ROLLING BACK', e);
             await client.query('ROLLBACK;');
         } finally {
-            
+            await client.release();
         }
     })().catch((e)=> console.log(e.stack));        
 }
@@ -70,7 +71,7 @@ exports.addLibrary = function (title, description, username, link, callback){
                 client.query('ROLLBACK;');
                 errorMsg = er;
             } finally {
-                client.release();
+                
                 callback(rowCount, errorMsg);
             }
         });
@@ -79,7 +80,7 @@ exports.addLibrary = function (title, description, username, link, callback){
         console.log('ROLLING BACK', e);
         await client.query('ROLLBACK;');
     } finally {
-        
+        await client.release();
     }
 })().catch((e)=> console.log(e.stack));                       
 }

@@ -17,6 +17,7 @@ exports.createBucket = function (bucketName, callback) {
             callback (message);
         }
     });
+    obsClient.close();
 }
 exports.listBuckets = function(callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -44,6 +45,7 @@ exports.listBuckets = function(callback){
             }
         }
     });    
+    obsClient.close();
 }
 exports.checkBucket = function(bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -65,6 +67,7 @@ exports.checkBucket = function(bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.deleteBucket = function(bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -86,6 +89,7 @@ exports.deleteBucket = function(bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.listObjects = function (bucketName, callback) {
     var ObsClient = require('esdk-obs-nodejs');
@@ -115,6 +119,7 @@ exports.listObjects = function (bucketName, callback) {
             }
         }
     });
+    obsClient.close();
 }
 exports.createFolder = function(folderName, bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -137,6 +142,7 @@ exports.createFolder = function(folderName, bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.deleteFolder = function(folderName, bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -159,6 +165,7 @@ exports.deleteFolder = function(folderName, bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.uploadFile = function(objectName, bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -183,6 +190,7 @@ exports.uploadFile = function(objectName, bucketName, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.uploadVideoFile = function(key, bucketName, data, callback){
     var ObsClient = require('esdk-obs-nodejs');
@@ -207,6 +215,7 @@ exports.uploadVideoFile = function(key, bucketName, data, callback){
             }
         }
     });
+    obsClient.close();
 }
 exports.deleteFile = function(objectName, bucketName, callback){
     var ObsClient = require('esdk-obs-nodejs');
